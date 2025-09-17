@@ -4,8 +4,7 @@ import { HeatmapLayer } from '@deck.gl/aggregation-layers';
 import type { Lane, ZipPoint } from '../state/store';
 import type { Color } from '@deck.gl/core';
 
-const ACCENT_COLOR_RGBA: Color = [0, 255, 51, 255];
-const ACCENT_COLOR_DIM: Color = [0, 255, 51, 51]; // 20% opacity
+
 const ACCENT_COLOR_NORMAL: Color = [0, 255, 51, 204]; // 80% opacity
 
 // Colors for origin and destination points

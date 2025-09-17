@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppStore } from '../state/store';
 
 export function HeatmapControls() {

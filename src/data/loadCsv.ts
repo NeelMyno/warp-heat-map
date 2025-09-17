@@ -44,7 +44,7 @@ function createFallbackZipData(zip: string): { lat: number; lon: number; city: s
   let lat = 39.8283; // Center of US
   let lon = -98.5795; // Center of US
   let state = 'US';
-  let city = 'Unknown';
+
 
   // Basic ZIP code region mapping (very simplified)
   if (zipNum >= 1000 && zipNum <= 19999) {

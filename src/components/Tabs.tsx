@@ -1,5 +1,4 @@
 
-import React from 'react';
 import type { TabType } from '../state/store';
 import { useAppStore } from '../state/store';
 
