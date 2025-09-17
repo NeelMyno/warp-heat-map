@@ -1,0 +1,10 @@
+Company Name,origin,destination
+Test Company 1,12345,67890
+Test Company 2,99999,11111
+Test Company 3,00001,99998
+Invalid ZIP Test,ABCDE,12345
+Another Test,12345,ZZZZZ
+Valid Company,60035,77479
+Edge Case 1,1,2
+Edge Case 2,123,456
+Normal Company,90210,10001
