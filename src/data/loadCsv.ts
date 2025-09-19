@@ -1,8 +1,8 @@
 import Papa from 'papaparse';
 import type { Lane, ZipPoint } from '../state/store';
-import { loadZipData, lookupZip, normalizeZip, sanitizeZip } from '../utils/zip';
+import { loadZipData, lookupZip, lookupZipWithFallback, normalizeZip, sanitizeZip } from '../utils/zip';
 import type { ZipData } from '../utils/zip';
-import { bearing, midpoint, isInLower48 } from '../utils/geo';
+import { bearing, midpoint } from '../utils/geo';
 
 export interface CsvRow {
   'Company Name': string;
@@ -33,61 +33,42 @@ function pickFirst(row: any, keys: string[]): string | undefined {
   return undefined;
 }
 
-// Create a fallback ZIP lookup that generates coordinates for unknown ZIP codes
-function createFallbackZipData(zip: string): { lat: number; lon: number; city: string; state: string } | null {
-  // For unknown ZIP codes, we'll generate approximate coordinates based on ZIP code patterns
-  const zipNum = parseInt(zip);
-  if (isNaN(zipNum) || zipNum < 1000 || zipNum > 99999) return null;
-
-  // Very rough approximation based on ZIP code ranges
-  // This is a simplified mapping - in production you'd want a more comprehensive solution
-  let lat = 39.8283; // Center of US
-  let lon = -98.5795; // Center of US
-  let state = 'US';
-
-
-  // Basic ZIP code region mapping (very simplified)
-  if (zipNum >= 1000 && zipNum <= 19999) {
-    // Northeast
-    lat = 42.0 + Math.random() * 5;
-    lon = -75.0 - Math.random() * 10;
-    state = 'NE';
-  } else if (zipNum >= 20000 && zipNum <= 39999) {
-    // Southeast
-    lat = 32.0 + Math.random() * 8;
-    lon = -85.0 - Math.random() * 15;
-    state = 'SE';
-  } else if (zipNum >= 40000 && zipNum <= 59999) {
-    // Midwest
-    lat = 40.0 + Math.random() * 8;
-    lon = -90.0 - Math.random() * 15;
-    state = 'MW';
-  } else if (zipNum >= 60000 && zipNum <= 79999) {
-    // Central
-    lat = 35.0 + Math.random() * 10;
-    lon = -100.0 - Math.random() * 15;
-    state = 'CT';
-  } else if (zipNum >= 80000 && zipNum <= 99999) {
-    // West
-    lat = 38.0 + Math.random() * 10;
-    lon = -115.0 - Math.random() * 15;
-    state = 'WS';
-  }
-
-  return { lat, lon, city: `ZIP ${zip}`, state };
-}
-
-
 /**
  * Load and process CSV data from a file path
+ * - Path resolution order:
+ *   1) explicit csvPath argument
+ *   2) URL query ?csv=filename.csv (served from /raw)
+ *   3) Vite env VITE_CSV_PATH (absolute or under /raw)
+ *   4) default: /raw/sample.csv
  */
-export async function loadCsvData(csvPath: string = '/raw/sample.csv'): Promise<ProcessedData> {
+export async function loadCsvData(csvPath?: string): Promise<ProcessedData> {
+  // Resolve path
+  let path = csvPath;
+  try {
+    if (!path) {
+      const params = new URLSearchParams(window.location.search);
+      const q = params.get('csv');
+      if (q) {
+        // Sanitize filename
+        const safe = q.replace(/[^a-zA-Z0-9_./-]/g, '');
+        path = safe.startsWith('/raw/') ? safe : `/raw/${safe}`;
+      }
+    }
+    if (!path) {
+      const envPath = (import.meta as any).env?.VITE_CSV_PATH as string | undefined;
+      if (envPath && typeof envPath === 'string') {
+        path = envPath;
+      }
+    }
+  } catch {}
+  if (!path) path = '/raw/sample.csv';
+
   try {
     // Load ZIP code data
     const zipData = await loadZipData();
 
     // Load CSV data
-    const csvResponse = await fetch(csvPath);
+    const csvResponse = await fetch(path);
     if (!csvResponse.ok) {
       throw new Error(`Failed to load CSV: ${csvResponse.statusText}`);
     }
@@ -105,7 +86,7 @@ export async function loadCsvData(csvPath: string = '/raw/sample.csv'): Promise<
       console.warn('CSV parsing errors:', parseResult.errors);
     }
 
-    return processCsvData(parseResult.data, zipData);
+    return await processCsvData(parseResult.data, zipData);
   } catch (error) {
     console.error('Error loading CSV data:', error);
     throw error;
@@ -134,7 +115,7 @@ export async function loadCsvFromFile(file: File): Promise<ProcessedData> {
       console.warn('CSV parsing errors:', parseResult.errors);
     }
 
-    return processCsvData(parseResult.data, zipData);
+    return await processCsvData(parseResult.data, zipData);
   } catch (error) {
     console.error('Error loading CSV file:', error);
     throw error;
@@ -144,16 +125,18 @@ export async function loadCsvFromFile(file: File): Promise<ProcessedData> {
 /**
  * Process parsed CSV data into lanes and points
  */
-function processCsvData(rows: any[], zipData: Record<string, ZipData>): ProcessedData {
+async function processCsvData(rows: any[], zipData: Record<string, ZipData>): Promise<ProcessedData> {
   const lanes: Lane[] = [];
   const originZips = new Set<string>();
   const destinationZips = new Set<string>();
   const allZips = new Set<string>();
   const originToCustomers: Record<string, Set<string>> = {};
   const invalidZips = new Set<string>();
+  const resolvedZip = new Map<string, ZipData>();
 
   // Process each row
-  rows.forEach((row: any, index) => {
+  for (let index = 0; index < rows.length; index++) {
+    const row: any = rows[index];
     // Support a variety of header names
     const originRaw = pickFirst(row, ORIGIN_KEYS);
     const destinationRaw = pickFirst(row, DEST_KEYS);
@@ -167,49 +150,36 @@ function processCsvData(rows: any[], zipData: Record<string, ZipData>): Processe
         console.warn(`Invalid origin ZIP format: "${originRaw}" -> normalized: "${normalizeZip(originRaw)}"`);
         invalidZips.add(String(originRaw));
       }
-      return;
+      continue;
     }
     if (!destinationZip) {
       if (destinationRaw) {
         console.warn(`Invalid destination ZIP format: "${destinationRaw}" -> normalized: "${normalizeZip(destinationRaw)}"`);
         invalidZips.add(String(destinationRaw));
       }
-      return;
+      continue;
     }
 
-    // Look up coordinates from local dataset, use fallback if not found
-    let originData = lookupZip(originZip, zipData);
-    let destinationData = lookupZip(destinationZip, zipData);
+    // Look up coordinates from local dataset, deterministically fall back to cached geocoding
+    let originData = lookupZip(originZip, zipData) || resolvedZip.get(originZip) || await lookupZipWithFallback(originZip, zipData);
+    let destinationData = lookupZip(destinationZip, zipData) || resolvedZip.get(destinationZip) || await lookupZipWithFallback(destinationZip, zipData);
 
-    // Use fallback data if ZIP not found in reference
     if (!originData) {
-      originData = createFallbackZipData(originZip);
-      if (!originData) {
-        invalidZips.add(originZip);
-        console.warn(`Could not process origin ZIP ${originZip} - invalid format`);
-        return;
-      }
-      console.log(`Using fallback data for origin ZIP: ${originZip}`);
+      invalidZips.add(originZip);
+      console.warn(`Could not resolve origin ZIP ${originZip}`);
+      continue;
+    }
+    if (!destinationData) {
+      invalidZips.add(destinationZip);
+      console.warn(`Could not resolve destination ZIP ${destinationZip}`);
+      continue;
     }
 
-    if (!destinationData) {
-      destinationData = createFallbackZipData(destinationZip);
-      if (!destinationData) {
-        invalidZips.add(destinationZip);
-        console.warn(`Could not process destination ZIP ${destinationZip} - invalid format`);
-        return;
-      }
-      console.log(`Using fallback data for destination ZIP: ${destinationZip}`);
-    }
+    resolvedZip.set(originZip, originData);
+    resolvedZip.set(destinationZip, destinationData);
 
     const originCoords: [number, number] = [originData.lon, originData.lat];
     const destinationCoords: [number, number] = [destinationData.lon, destinationData.lat];
-
-    // Skip if not in lower 48 (but don't mark as invalid - just filter out)
-    if (!isInLower48(originCoords) || !isInLower48(destinationCoords)) {
-      console.warn(`ZIP codes ${originZip} -> ${destinationZip} outside lower 48 states, skipping`);
-      return;
-    }
 
     // Calculate bearing and midpoint
     const laneId = `${originZip}-${destinationZip}-${index}`;
@@ -242,16 +212,22 @@ function processCsvData(rows: any[], zipData: Record<string, ZipData>): Processe
       originToCustomers[originZip] = new Set();
     }
     originToCustomers[originZip].add(customerName);
-  });
+  }
 
-  // Create point arrays
-  const pointsAll = createZipPoints(allZips, zipData);
-  const pointsOrigin = createZipPoints(originZips, zipData);
-  const pointsDestination = createZipPoints(destinationZips, zipData);
+  // Create point arrays from resolved data (no randomness, no online calls)
+  const toPoint = (zip: string): ZipPoint | null => {
+    const d = resolvedZip.get(zip) || lookupZip(zip, zipData);
+    if (!d) return null;
+    return { zip, lon: d.lon, lat: d.lat, city: d.city, state: d.state };
+  };
+
+  const pointsAll: ZipPoint[] = Array.from(allZips).map(toPoint).filter(Boolean) as ZipPoint[];
+  const pointsOrigin: ZipPoint[] = Array.from(originZips).map(toPoint).filter(Boolean) as ZipPoint[];
+  const pointsDestination: ZipPoint[] = Array.from(destinationZips).map(toPoint).filter(Boolean) as ZipPoint[];
 
   // Log invalid ZIPs
   if (invalidZips.size > 0) {
-    console.warn(`${invalidZips.size} ZIP codes not found in reference data:`, Array.from(invalidZips));
+    console.warn(`${invalidZips.size} ZIP codes could not be resolved:`, Array.from(invalidZips));
   }
 
   return {
@@ -262,32 +238,4 @@ function processCsvData(rows: any[], zipData: Record<string, ZipData>): Processe
     originToCustomers,
     invalidZips: Array.from(invalidZips),
   };
-}
-
-/**
- * Create ZipPoint array from ZIP codes
- */
-function createZipPoints(zipCodes: Set<string>, zipData: Record<string, ZipData>): ZipPoint[] {
-  const points: ZipPoint[] = [];
-
-  zipCodes.forEach(zip => {
-    let data = lookupZip(zip, zipData);
-
-    // Use fallback data if not found in reference
-    if (!data) {
-      data = createFallbackZipData(zip);
-    }
-
-    if (data && isInLower48([data.lon, data.lat])) {
-      points.push({
-        zip,
-        lon: data.lon,
-        lat: data.lat,
-        city: data.city,
-        state: data.state,
-      });
-    }
-  });
-
-  return points;
 }

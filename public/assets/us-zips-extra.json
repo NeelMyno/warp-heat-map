@@ -1,0 +1,776 @@
+{
+  "10307": {
+    "lat": 40.5085,
+    "lon": -74.2445,
+    "city": "Staten Island",
+    "state": "NY"
+  },
+  "11207": {
+    "lat": 40.6705,
+    "lon": -73.894,
+    "city": "Brooklyn",
+    "state": "NY"
+  },
+  "11753": {
+    "lat": 40.7881,
+    "lon": -73.5331,
+    "city": "Jericho",
+    "state": "NY"
+  },
+  "11803": {
+    "lat": 40.7781,
+    "lon": -73.4816,
+    "city": "Plainview",
+    "state": "NY"
+  },
+  "12121": {
+    "lat": 42.8412,
+    "lon": -73.6077,
+    "city": "Melrose",
+    "state": "NY"
+  },
+  "17011": {
+    "lat": 40.2352,
+    "lon": -76.9291,
+    "city": "Camp Hill",
+    "state": "PA"
+  },
+  "17057": {
+    "lat": 40.2041,
+    "lon": -76.7331,
+    "city": "Middletown",
+    "state": "PA"
+  },
+  "18447": {
+    "lat": 41.4677,
+    "lon": -75.6015,
+    "city": "Olyphant",
+    "state": "PA"
+  },
+  "18914": {
+    "lat": 40.2892,
+    "lon": -75.2149,
+    "city": "Chalfont",
+    "state": "PA"
+  },
+  "20024": {
+    "lat": 38.8759,
+    "lon": -77.016,
+    "city": "Washington",
+    "state": "DC"
+  },
+  "20794": {
+    "lat": 39.1484,
+    "lon": -76.7922,
+    "city": "Jessup",
+    "state": "MD"
+  },
+  "23232": {
+    "lat": 37.5202,
+    "lon": -77.4084,
+    "city": "Richmond",
+    "state": "VA"
+  },
+  "27519": {
+    "lat": 35.8072,
+    "lon": -78.887,
+    "city": "Cary",
+    "state": "NC"
+  },
+  "28078": {
+    "lat": 35.4011,
+    "lon": -80.8695,
+    "city": "Huntersville",
+    "state": "NC"
+  },
+  "28105": {
+    "lat": 35.1149,
+    "lon": -80.705,
+    "city": "Matthews",
+    "state": "NC"
+  },
+  "28206": {
+    "lat": 35.2522,
+    "lon": -80.8265,
+    "city": "Charlotte",
+    "state": "NC"
+  },
+  "28610": {
+    "lat": 35.7211,
+    "lon": -81.1297,
+    "city": "Claremont",
+    "state": "NC"
+  },
+  "29407": {
+    "lat": 32.7993,
+    "lon": -80.006,
+    "city": "Charleston",
+    "state": "SC"
+  },
+  "30067": {
+    "lat": 33.9282,
+    "lon": -84.4733,
+    "city": "Marietta",
+    "state": "GA"
+  },
+  "30253": {
+    "lat": 33.451,
+    "lon": -84.1544,
+    "city": "Mcdonough",
+    "state": "GA"
+  },
+  "30340": {
+    "lat": 33.8932,
+    "lon": -84.2539,
+    "city": "Atlanta",
+    "state": "GA"
+  },
+  "33020": {
+    "lat": 26.0161,
+    "lon": -80.1517,
+    "city": "Hollywood",
+    "state": "FL"
+  },
+  "33023": {
+    "lat": 25.9894,
+    "lon": -80.2153,
+    "city": "Hollywood",
+    "state": "FL"
+  },
+  "33073": {
+    "lat": 26.2997,
+    "lon": -80.181,
+    "city": "Pompano Beach",
+    "state": "FL"
+  },
+  "33126": {
+    "lat": 25.7763,
+    "lon": -80.2919,
+    "city": "Miami",
+    "state": "FL"
+  },
+  "33166": {
+    "lat": 25.8301,
+    "lon": -80.2926,
+    "city": "Miami",
+    "state": "FL"
+  },
+  "33178": {
+    "lat": 25.8141,
+    "lon": -80.3549,
+    "city": "Miami",
+    "state": "FL"
+  },
+  "33314": {
+    "lat": 26.0697,
+    "lon": -80.2246,
+    "city": "Fort Lauderdale",
+    "state": "FL"
+  },
+  "33612": {
+    "lat": 28.0502,
+    "lon": -82.45,
+    "city": "Tampa",
+    "state": "FL"
+  },
+  "33624": {
+    "lat": 28.079,
+    "lon": -82.5268,
+    "city": "Tampa",
+    "state": "FL"
+  },
+  "33782": {
+    "lat": 27.8681,
+    "lon": -82.7086,
+    "city": "Pinellas Park",
+    "state": "FL"
+  },
+  "34602": {
+    "lat": 28.5093,
+    "lon": -82.2957,
+    "city": "Brooksville",
+    "state": "FL"
+  },
+  "37203": {
+    "lat": 36.1504,
+    "lon": -86.7916,
+    "city": "Nashville",
+    "state": "TN"
+  },
+  "40209": {
+    "lat": 38.1901,
+    "lon": -85.7519,
+    "city": "Louisville",
+    "state": "KY"
+  },
+  "41011": {
+    "lat": 39.0708,
+    "lon": -84.5212,
+    "city": "Covington",
+    "state": "KY"
+  },
+  "43210": {
+    "lat": 40.0028,
+    "lon": -83.0164,
+    "city": "Columbus",
+    "state": "OH"
+  },
+  "43232": {
+    "lat": 39.923,
+    "lon": -82.8664,
+    "city": "Columbus",
+    "state": "OH"
+  },
+  "44406": {
+    "lat": 41.0293,
+    "lon": -80.7564,
+    "city": "Canfield",
+    "state": "OH"
+  },
+  "45242": {
+    "lat": 39.2447,
+    "lon": -84.3455,
+    "city": "Cincinnati",
+    "state": "OH"
+  },
+  "46140": {
+    "lat": 39.7902,
+    "lon": -85.8141,
+    "city": "Greenfield",
+    "state": "IN"
+  },
+  "46228": {
+    "lat": 39.8462,
+    "lon": -86.1951,
+    "city": "Indianapolis",
+    "state": "IN"
+  },
+  "48180": {
+    "lat": 42.2317,
+    "lon": -83.2673,
+    "city": "Taylor",
+    "state": "MI"
+  },
+  "48917": {
+    "lat": 42.7376,
+    "lon": -84.6244,
+    "city": "Lansing",
+    "state": "MI"
+  },
+  "50111": {
+    "lat": 41.7018,
+    "lon": -93.7821,
+    "city": "Grimes",
+    "state": "IA"
+  },
+  "60007": {
+    "lat": 42.0076,
+    "lon": -87.9931,
+    "city": "Elk Grove Village",
+    "state": "IL"
+  },
+  "60035": {
+    "lat": 42.1794,
+    "lon": -87.8059,
+    "city": "Highland Park",
+    "state": "IL"
+  },
+  "60165": {
+    "lat": 41.903,
+    "lon": -87.8811,
+    "city": "Stone Park",
+    "state": "IL"
+  },
+  "60173": {
+    "lat": 42.0581,
+    "lon": -88.0482,
+    "city": "Schaumburg",
+    "state": "IL"
+  },
+  "60469": {
+    "lat": 41.6277,
+    "lon": -87.6872,
+    "city": "Posen",
+    "state": "IL"
+  },
+  "60611": {
+    "lat": 41.8971,
+    "lon": -87.6223,
+    "city": "Chicago",
+    "state": "IL"
+  },
+  "60649": {
+    "lat": 41.762,
+    "lon": -87.5703,
+    "city": "Chicago",
+    "state": "IL"
+  },
+  "65201": {
+    "lat": 38.9382,
+    "lon": -92.3049,
+    "city": "Columbia",
+    "state": "MO"
+  },
+  "70403": {
+    "lat": 30.4911,
+    "lon": -90.4697,
+    "city": "Hammond",
+    "state": "LA"
+  },
+  "71601": {
+    "lat": 34.209,
+    "lon": -91.9859,
+    "city": "Pine Bluff",
+    "state": "AR"
+  },
+  "75035": {
+    "lat": 33.1377,
+    "lon": -96.7524,
+    "city": "Frisco",
+    "state": "TX"
+  },
+  "76120": {
+    "lat": 32.7639,
+    "lon": -97.1781,
+    "city": "Fort Worth",
+    "state": "TX"
+  },
+  "76210": {
+    "lat": 33.1428,
+    "lon": -97.0727,
+    "city": "Denton",
+    "state": "TX"
+  },
+  "76520": {
+    "lat": 30.8527,
+    "lon": -96.9766,
+    "city": "Cameron",
+    "state": "TX"
+  },
+  "77049": {
+    "lat": 29.8235,
+    "lon": -95.1848,
+    "city": "Houston",
+    "state": "TX"
+  },
+  "77054": {
+    "lat": 29.6852,
+    "lon": -95.4017,
+    "city": "Houston",
+    "state": "TX"
+  },
+  "77064": {
+    "lat": 29.919,
+    "lon": -95.5569,
+    "city": "Houston",
+    "state": "TX"
+  },
+  "77066": {
+    "lat": 29.961,
+    "lon": -95.4947,
+    "city": "Houston",
+    "state": "TX"
+  },
+  "77086": {
+    "lat": 29.9227,
+    "lon": -95.4939,
+    "city": "Houston",
+    "state": "TX"
+  },
+  "77379": {
+    "lat": 30.0377,
+    "lon": -95.5326,
+    "city": "Spring",
+    "state": "TX"
+  },
+  "77479": {
+    "lat": 29.5785,
+    "lon": -95.6066,
+    "city": "Sugar Land",
+    "state": "TX"
+  },
+  "77493": {
+    "lat": 29.8678,
+    "lon": -95.8298,
+    "city": "Katy",
+    "state": "TX"
+  },
+  "78045": {
+    "lat": 27.6357,
+    "lon": -99.5923,
+    "city": "Laredo",
+    "state": "TX"
+  },
+  "78704": {
+    "lat": 30.2428,
+    "lon": -97.7658,
+    "city": "Austin",
+    "state": "TX"
+  },
+  "78717": {
+    "lat": 30.506,
+    "lon": -97.7472,
+    "city": "Austin",
+    "state": "TX"
+  },
+  "80020": {
+    "lat": 39.9245,
+    "lon": -105.0609,
+    "city": "Broomfield",
+    "state": "CO"
+  },
+  "80022": {
+    "lat": 39.8259,
+    "lon": -104.9113,
+    "city": "Commerce City",
+    "state": "CO"
+  },
+  "80203": {
+    "lat": 39.7313,
+    "lon": -104.9811,
+    "city": "Denver",
+    "state": "CO"
+  },
+  "80206": {
+    "lat": 39.7331,
+    "lon": -104.9524,
+    "city": "Denver",
+    "state": "CO"
+  },
+  "80209": {
+    "lat": 39.7074,
+    "lon": -104.9686,
+    "city": "Denver",
+    "state": "CO"
+  },
+  "80220": {
+    "lat": 39.7312,
+    "lon": -104.9129,
+    "city": "Denver",
+    "state": "CO"
+  },
+  "80228": {
+    "lat": 39.6888,
+    "lon": -105.156,
+    "city": "Denver",
+    "state": "CO"
+  },
+  "80301": {
+    "lat": 40.0497,
+    "lon": -105.2143,
+    "city": "Boulder",
+    "state": "CO"
+  },
+  "85009": {
+    "lat": 33.4564,
+    "lon": -112.1284,
+    "city": "Phoenix",
+    "state": "AZ"
+  },
+  "85012": {
+    "lat": 33.5097,
+    "lon": -112.0678,
+    "city": "Phoenix",
+    "state": "AZ"
+  },
+  "85042": {
+    "lat": 33.3794,
+    "lon": -112.0283,
+    "city": "Phoenix",
+    "state": "AZ"
+  },
+  "85304": {
+    "lat": 33.5943,
+    "lon": -112.1746,
+    "city": "Glendale",
+    "state": "AZ"
+  },
+  "85714": {
+    "lat": 32.1707,
+    "lon": -110.9719,
+    "city": "Tucson",
+    "state": "AZ"
+  },
+  "88047": {
+    "lat": 32.21,
+    "lon": -106.7147,
+    "city": "Mesilla Park",
+    "state": "NM"
+  },
+  "89511": {
+    "lat": 39.4151,
+    "lon": -119.7668,
+    "city": "Reno",
+    "state": "NV"
+  },
+  "89512": {
+    "lat": 39.5483,
+    "lon": -119.7957,
+    "city": "Reno",
+    "state": "NV"
+  },
+  "90021": {
+    "lat": 34.0333,
+    "lon": -118.2447,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "90034": {
+    "lat": 34.029,
+    "lon": -118.4005,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "90045": {
+    "lat": 33.9631,
+    "lon": -118.3941,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "90046": {
+    "lat": 34.1074,
+    "lon": -118.3652,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "90058": {
+    "lat": 33.9994,
+    "lon": -118.2133,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "90068": {
+    "lat": 34.1156,
+    "lon": -118.3305,
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "90232": {
+    "lat": 34.0168,
+    "lon": -118.3973,
+    "city": "Culver City",
+    "state": "CA"
+  },
+  "90240": {
+    "lat": 33.9581,
+    "lon": -118.1174,
+    "city": "Downey",
+    "state": "CA"
+  },
+  "90501": {
+    "lat": 33.8268,
+    "lon": -118.3118,
+    "city": "Torrance",
+    "state": "CA"
+  },
+  "90620": {
+    "lat": 33.8439,
+    "lon": -118.008,
+    "city": "Buena Park",
+    "state": "CA"
+  },
+  "90802": {
+    "lat": 33.7706,
+    "lon": -118.182,
+    "city": "Long Beach",
+    "state": "CA"
+  },
+  "91030": {
+    "lat": 34.1109,
+    "lon": -118.1547,
+    "city": "South Pasadena",
+    "state": "CA"
+  },
+  "91352": {
+    "lat": 34.2209,
+    "lon": -118.3699,
+    "city": "Sun Valley",
+    "state": "CA"
+  },
+  "91722": {
+    "lat": 34.0972,
+    "lon": -117.9065,
+    "city": "Covina",
+    "state": "CA"
+  },
+  "91731": {
+    "lat": 34.0791,
+    "lon": -118.0371,
+    "city": "El Monte",
+    "state": "CA"
+  },
+  "91740": {
+    "lat": 34.1287,
+    "lon": -117.8552,
+    "city": "Glendora",
+    "state": "CA"
+  },
+  "91745": {
+    "lat": 33.9977,
+    "lon": -117.9652,
+    "city": "Hacienda Heights",
+    "state": "CA"
+  },
+  "91748": {
+    "lat": 33.9818,
+    "lon": -117.8969,
+    "city": "Rowland Heights",
+    "state": "CA"
+  },
+  "91761": {
+    "lat": 34.0316,
+    "lon": -117.6187,
+    "city": "Ontario",
+    "state": "CA"
+  },
+  "91768": {
+    "lat": 34.0662,
+    "lon": -117.7763,
+    "city": "Pomona",
+    "state": "CA"
+  },
+  "91803": {
+    "lat": 34.0745,
+    "lon": -118.1434,
+    "city": "Alhambra",
+    "state": "CA"
+  },
+  "91910": {
+    "lat": 32.6371,
+    "lon": -117.0676,
+    "city": "Chula Vista",
+    "state": "CA"
+  },
+  "92120": {
+    "lat": 32.7958,
+    "lon": -117.0707,
+    "city": "San Diego",
+    "state": "CA"
+  },
+  "92154": {
+    "lat": 32.5753,
+    "lon": -117.0707,
+    "city": "San Diego",
+    "state": "CA"
+  },
+  "92337": {
+    "lat": 34.0498,
+    "lon": -117.4706,
+    "city": "Fontana",
+    "state": "CA"
+  },
+  "92408": {
+    "lat": 34.0831,
+    "lon": -117.2711,
+    "city": "San Bernardino",
+    "state": "CA"
+  },
+  "92675": {
+    "lat": 33.5085,
+    "lon": -117.6565,
+    "city": "San Juan Capistrano",
+    "state": "CA"
+  },
+  "94010": {
+    "lat": 37.5671,
+    "lon": -122.3676,
+    "city": "Burlingame",
+    "state": "CA"
+  },
+  "94109": {
+    "lat": 37.7917,
+    "lon": -122.4186,
+    "city": "San Francisco",
+    "state": "CA"
+  },
+  "94111": {
+    "lat": 37.7974,
+    "lon": -122.4001,
+    "city": "San Francisco",
+    "state": "CA"
+  },
+  "94401": {
+    "lat": 37.5735,
+    "lon": -122.3225,
+    "city": "San Mateo",
+    "state": "CA"
+  },
+  "94530": {
+    "lat": 37.9156,
+    "lon": -122.2985,
+    "city": "El Cerrito",
+    "state": "CA"
+  },
+  "94706": {
+    "lat": 37.89,
+    "lon": -122.2954,
+    "city": "Albany",
+    "state": "CA"
+  },
+  "95340": {
+    "lat": 37.2983,
+    "lon": -120.4649,
+    "city": "Merced",
+    "state": "CA"
+  },
+  "95965": {
+    "lat": 39.6054,
+    "lon": -121.5751,
+    "city": "Oroville",
+    "state": "CA"
+  },
+  "98188": {
+    "lat": 47.4483,
+    "lon": -122.2731,
+    "city": "Seattle",
+    "state": "WA"
+  },
+  "08901": {
+    "lat": 40.4891,
+    "lon": -74.4482,
+    "city": "New Brunswick",
+    "state": "NJ"
+  },
+  "08830": {
+    "lat": 40.5716,
+    "lon": -74.3167,
+    "city": "Iselin",
+    "state": "NJ"
+  },
+  "08065": {
+    "lat": 40.0037,
+    "lon": -75.0257,
+    "city": "Palmyra",
+    "state": "NJ"
+  },
+  "07801": {
+    "lat": 40.9176,
+    "lon": -74.5467,
+    "city": "Dover",
+    "state": "NJ"
+  },
+  "07086": {
+    "lat": 40.7681,
+    "lon": -74.0208,
+    "city": "Weehawken",
+    "state": "NJ"
+  },
+  "07014": {
+    "lat": 40.8344,
+    "lon": -74.1377,
+    "city": "Clifton",
+    "state": "NJ"
+  },
+  "08902": {
+    "lat": 40.4538,
+    "lon": -74.4823,
+    "city": "North Brunswick",
+    "state": "NJ"
+  },
+  "08854": {
+    "lat": 40.5515,
+    "lon": -74.459,
+    "city": "Piscataway",
+    "state": "NJ"
+  }
+}

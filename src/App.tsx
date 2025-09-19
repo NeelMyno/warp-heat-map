@@ -95,7 +95,7 @@ function App() {
           border: '1px solid rgba(0,255,51,0.35)'
         }}>
           <span style={{ color: 'var(--text-0)', fontSize: '12px' }}>
-            ℹ️ {invalidZipCount} ZIP codes using approximate coordinates
+            ℹ️ {invalidZipCount} ZIP codes could not be resolved from the local dataset
           </span>
           <button
             onClick={() => setShowInvalidZipWarning(false)}
