@@ -88,7 +88,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     query: '',
   },
   heatmap: {
-    radiusPixels: 100,
+    radiusPixels: 150,
     intensity: 1.1,
     enabled: true,
   },
