@@ -11,6 +11,7 @@ function App() {
     setLanes,
     setPoints,
     setOriginToCustomers,
+    setCurrentFileName,
     setLoading,
     setError,
     isLoading,
@@ -32,6 +33,7 @@ function App() {
         setLanes(data.lanes);
         setPoints(data.pointsAll, data.pointsOrigin, data.pointsDestination);
         setOriginToCustomers(data.originToCustomers);
+        setCurrentFileName(data.fileName);
 
         if (data.invalidZips.length > 0) {
           setInvalidZipCount(data.invalidZips.length);
@@ -45,7 +47,7 @@ function App() {
     };
 
     loadData();
-  }, [setLanes, setPoints, setOriginToCustomers, setLoading, setError]);
+  }, [setLanes, setPoints, setOriginToCustomers, setCurrentFileName, setLoading, setError]);
 
 
 

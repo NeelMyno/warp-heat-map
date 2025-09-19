@@ -3,6 +3,7 @@
 import { LaneControls } from './LaneControls';
 import { HeatmapTabs } from './HeatmapTabs';
 import { HeatmapControls } from './HeatmapControls';
+import { FileInfo } from './FileInfo';
 import { loadCsvFromFile } from '../data/loadCsv';
 import { useAppStore } from '../state/store';
 
@@ -11,6 +12,7 @@ export function Sidebar() {
     setLanes,
     setPoints,
     setOriginToCustomers,
+    setCurrentFileName,
     setLoading,
     setError,
   } = useAppStore();
@@ -34,6 +36,7 @@ export function Sidebar() {
       setLanes(data.lanes);
       setPoints(data.pointsAll, data.pointsOrigin, data.pointsDestination);
       setOriginToCustomers(data.originToCustomers);
+      setCurrentFileName(file.name);
 
       console.log(`Successfully loaded ${data.lanes.length} lanes from ${file.name}`);
     } catch (err) {
@@ -49,6 +52,12 @@ export function Sidebar() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', height: '100%' }}>
+      {/* File Information */}
+      <div className="section">
+        <div className="section-title">File Information</div>
+        <FileInfo />
+      </div>
+
       {/* Action Buttons */}
       <div className="section">
         <div className="section-title">Actions</div>

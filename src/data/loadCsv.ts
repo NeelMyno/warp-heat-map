@@ -17,6 +17,7 @@ export interface ProcessedData {
   pointsDestination: ZipPoint[];
   originToCustomers: Record<string, Set<string>>;
   invalidZips: string[];
+  fileName: string;
 }
 
 // Canonicalize headers: remove spaces/symbols and lowercase
@@ -86,7 +87,8 @@ export async function loadCsvData(csvPath?: string): Promise<ProcessedData> {
       console.warn('CSV parsing errors:', parseResult.errors);
     }
 
-    return await processCsvData(parseResult.data, zipData);
+    const result = await processCsvData(parseResult.data, zipData);
+    return { ...result, fileName: path };
   } catch (error) {
     console.error('Error loading CSV data:', error);
     throw error;
@@ -115,7 +117,8 @@ export async function loadCsvFromFile(file: File): Promise<ProcessedData> {
       console.warn('CSV parsing errors:', parseResult.errors);
     }
 
-    return await processCsvData(parseResult.data, zipData);
+    const result = await processCsvData(parseResult.data, zipData);
+    return { ...result, fileName: file.name };
   } catch (error) {
     console.error('Error loading CSV file:', error);
     throw error;
@@ -237,5 +240,6 @@ async function processCsvData(rows: any[], zipData: Record<string, ZipData>): Pr
     pointsDestination,
     originToCustomers,
     invalidZips: Array.from(invalidZips),
+    fileName: '', // Will be set by the calling function
   };
 }

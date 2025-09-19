@@ -30,7 +30,10 @@ interface AppState {
   pointsOrigin: ZipPoint[];
   pointsDestination: ZipPoint[];
   originToCustomers: Record<string, Set<string>>;
-  
+
+  // File info
+  currentFileName: string | null;
+
   // UI State
   tab: TabType;
   filters: {
@@ -43,7 +46,7 @@ interface AppState {
   };
   lanesVisible: boolean;
   pointsVisible: boolean;
-  
+
   // Loading state
   isLoading: boolean;
   error: string | null;
@@ -52,6 +55,7 @@ interface AppState {
   setLanes: (lanes: Lane[]) => void;
   setPoints: (pointsAll: ZipPoint[], pointsOrigin: ZipPoint[], pointsDestination: ZipPoint[]) => void;
   setOriginToCustomers: (originToCustomers: Record<string, Set<string>>) => void;
+  setCurrentFileName: (fileName: string | null) => void;
   toggleLane: (id: string) => void;
   setAllVisible: (visible: boolean) => void;
   setTab: (tab: TabType) => void;
@@ -76,7 +80,9 @@ export const useAppStore = create<AppState>((set, get) => ({
   pointsOrigin: [],
   pointsDestination: [],
   originToCustomers: {},
-  
+
+  currentFileName: null,
+
   tab: 'all',
   filters: {
     query: '',
@@ -88,7 +94,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
   lanesVisible: false, // Hidden by default
   pointsVisible: true, // Visible by default
-  
+
   isLoading: false,
   error: null,
   
@@ -109,7 +115,11 @@ export const useAppStore = create<AppState>((set, get) => ({
   setOriginToCustomers: (originToCustomers) => {
     set({ originToCustomers });
   },
-  
+
+  setCurrentFileName: (fileName) => {
+    set({ currentFileName: fileName });
+  },
+
   toggleLane: (id) => {
     set((state) => ({
       lanesById: {
