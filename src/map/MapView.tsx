@@ -111,6 +111,7 @@ export function MapView() {
         style={{ position: 'relative' }}
       >
         <Map
+          // Dark Matter with labels (shows states and cities as you zoom), dark background per your preference
           mapStyle="https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
           style={{ background: '#121212' }}
         />
