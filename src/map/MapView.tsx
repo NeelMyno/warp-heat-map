@@ -1,7 +1,8 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Map } from 'react-map-gl/maplibre';
 import { DeckGL } from '@deck.gl/react';
+import { GeoJsonLayer } from '@deck.gl/layers';
 import { useAppStore } from '../state/store';
 import { getLayers } from './layers';
 import { createLaneTooltip, createOriginTooltip, debounce } from './tooltips';
@@ -25,6 +26,8 @@ export function MapView() {
     y: number;
     content: React.ReactNode;
   } | null>(null);
+  const [highlightFeature, setHighlightFeature] = useState<any | null>(null);
+  const zctaCacheRef = useRef<Map<string, any>>(new globalThis.Map<string, any>());
 
   // Debounced tooltip setter to avoid flickering
   const debouncedSetTooltip = useCallback(
@@ -33,6 +36,50 @@ export function MapView() {
     }, 50),
     []
   );
+
+  // State code -> full name (lowercase) for OpenDataDE filenames
+  const stateNameByCode: Record<string, string> = {
+    AL: 'alabama', AK: 'alaska', AZ: 'arizona', AR: 'arkansas', CA: 'california', CO: 'colorado',
+    CT: 'connecticut', DE: 'delaware', FL: 'florida', GA: 'georgia', HI: 'hawaii', ID: 'idaho',
+    IL: 'illinois', IN: 'indiana', IA: 'iowa', KS: 'kansas', KY: 'kentucky', LA: 'louisiana',
+    ME: 'maine', MD: 'maryland', MA: 'massachusetts', MI: 'michigan', MN: 'minnesota',
+    MS: 'mississippi', MO: 'missouri', MT: 'montana', NE: 'nebraska', NV: 'nevada',
+    NH: 'new_hampshire', NJ: 'new_jersey', NM: 'new_mexico', NY: 'new_york', NC: 'north_carolina',
+    ND: 'north_dakota', OH: 'ohio', OK: 'oklahoma', OR: 'oregon', PA: 'pennsylvania',
+    RI: 'rhode_island', SC: 'south_carolina', SD: 'south_dakota', TN: 'tennessee', TX: 'texas',
+    UT: 'utah', VT: 'vermont', VA: 'virginia', WA: 'washington', WV: 'west_virginia',
+    WI: 'wisconsin', WY: 'wyoming', DC: 'district_of_columbia'
+  };
+
+  const fetchZctaFeature = useCallback(async (zip: string, stateCode?: string | null) => {
+    if (!stateCode) return null;
+    const upper = stateCode.toUpperCase();
+    const fullname = stateNameByCode[upper];
+    if (!fullname) return null;
+
+    // Cache by ZIP to avoid repeated downloads
+    const cached = zctaCacheRef.current.get(zip);
+    if (cached) return cached;
+
+    const url = `https://raw.githubusercontent.com/OpenDataDE/State-zip-code-GeoJSON/master/${upper.toLowerCase()}_${fullname}_zip_codes_geo.min.json`;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const fc = await res.json();
+      if (fc && Array.isArray(fc.features)) {
+        const feat = fc.features.find((f: any) =>
+          (f.properties?.ZCTA5CE10 === zip) || (f.properties?.ZCTA5CE20 === zip)
+        );
+        if (feat) {
+          zctaCacheRef.current.set(zip, feat);
+          return feat;
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+    return null;
+  }, []);
 
   // Handle lane hover
   const handleLaneHover = useCallback((info: any) => {
@@ -59,29 +106,35 @@ export function MapView() {
     }
   }, [toggleLane]);
 
-  // Handle origin hover
+  // Handle origin hover (and destination hover)
   const handleOriginHover = useCallback((info: any) => {
     if (info.object && info.x !== undefined && info.y !== undefined) {
       const zipPoint = info.object;
       const customers = originToCustomers[zipPoint.zip];
-      
+
+      // Tooltip
       if (customers && customers.size > 0) {
         const content = createOriginTooltip(zipPoint, customers);
         debouncedSetTooltip({
           x: info.x,
           y: info.y,
           content: (
-            <div className="text-white rounded-lg border border-[#333] shadow-2xl
-              bg-[#121212]">
+            <div className="text-white rounded-lg border border-[#333] shadow-2xl bg-[#121212]">
               {content}
             </div>
           ),
         });
       }
+
+      // Highlight ZCTA polygon (best-effort; async)
+      fetchZctaFeature(zipPoint.zip, zipPoint.state).then((feat) => {
+        setHighlightFeature(feat || null);
+      });
     } else {
       debouncedSetTooltip(null);
+      setHighlightFeature(null);
     }
-  }, [originToCustomers, debouncedSetTooltip]);
+  }, [originToCustomers, debouncedSetTooltip, fetchZctaFeature]);
 
   // Get current data
   const heatmapPoints = getHeatmapPoints();
@@ -100,6 +153,19 @@ export function MapView() {
     handleOriginHover,
     handleOriginHover // Use same handler for destination hover for now
   );
+
+  if (highlightFeature) {
+    layers.push(new GeoJsonLayer({
+      id: 'zcta-highlight',
+      data: highlightFeature,
+      stroked: true,
+      filled: true,
+      pickable: false,
+      getFillColor: [0, 255, 51, 40],
+      getLineColor: [0, 255, 51, 180],
+      lineWidthMinPixels: 2,
+    }) as any);
+  }
 
   return (
     <div className="relative w-full h-full">
