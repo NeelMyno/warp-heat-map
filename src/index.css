@@ -229,7 +229,7 @@ a:hover { text-decoration: underline; }
   letter-spacing: .3px;
   transition: color var(--trans-fast), background var(--trans-fast);
 }
-.tab:hover { color: var(--text-0); background: var(--bg-3); }
+.tab:hover { color: var(--text-0); border: 1px solid white; }
 .tab.is-active {
   color: #0b1a10;
   background: var(--accent);
